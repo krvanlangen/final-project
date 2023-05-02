@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <div id="cookiePopup">
+  <h4>Cookie Consent</h4>
+  <p>Our website uses cookies to make your browsing experience soooooooo slay and make sure no one is out here fake hustlin on our site. Before continuing to use our website, be sure to accept our <a href="./cookie-policy.html">Cookie Policy</a> or else :)</p>
+<button id="acceptCookie">Accept</button>
+</div>
+ 
+<!-- Literally why do you never have a style section -->
+<style>
+ #cookiePopup {
+    background: white;
+    width: 25%;
+    position: fixed;
+    left: 10px;
+    bottom: 20px;
+    box-shadow: 0px 0px 15px #cccccc;
+    padding: 5px 10px;
+  }
+    #cookiePopup p{
+    text-align: left;
+    font-size: 15px;
+    color: #4e4e4e;
+  }
+  #cookiePopup button{
+    width: 100%;
+    font: comic;
+    border: navajowhite;
+    background: #800000;
+    padding: 5px;
+    border-radius: 10px;
+    color: white;
+  }
+</style>
+ 
+    <script src="cookie-popup.js">
+var cookieName= "krvl"; //Prob want to change these-- idk what your teacher wants
+var cookieValue="slay";
+var cookieExpireDays= 30;
+let acceptCookie= document.getElementById("acceptCookie");
+acceptCookie.onclick= function(){
+    createCookie(cookieName, cookieValue, cookieExpireDays);
+}
+//Set cookie in web browser
+let createCookie= function(cookieName, cookieValue, cookieExpireDays){
+  let currentDate = new Date();
+  currentDate.setTime(currentDate.getTime() + (cookieExpireDays*24*60*60*1000));
+  let expires = "expires=" + currentDate.toGMTString();
+  document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/";
+  if(document.cookie){
+    document.getElementById("cookiePopup").style.display = "none";
+  }else{
+    alert("Unable to set cookie. Please allow all cookies site from cookie setting of your browser");
+  }
+}
+//Get cookie from web browser
+let getCookie= function(cookieName){
+  let name = cookieName + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+//Check if cookie is set or not
+let checkCookie= function(){
+    let check=getCookie(cookieName);
+    if(check==""){
+        document.getElementById("cookiePopup").style.display = "block";
+    }else{
+       
+        document.getElementById("cookiePopup").style.display = "none";
+    }
+}
+checkCookie();
+    </script>
+  </body>
+</html>
